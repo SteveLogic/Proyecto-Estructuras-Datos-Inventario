@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.File;
 
 public class Main {
 
@@ -39,10 +40,8 @@ public class Main {
             System.out.println("8. Reporte de costos");
             System.out.println("9. Salir");
             System.out.println(AZUL + "=================================" + RESET);
-            System.out.print("Seleccione una opcion: ");
 
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            opcion = leerEntero(scanner, "Seleccione una opcion: ");
 
             switch (opcion) {
 
@@ -56,8 +55,7 @@ public class Main {
                     System.out.print("Nombre: ");
                     String nombre = scanner.nextLine();
 
-                    System.out.print("Precio: ");
-                    double precio = Double.parseDouble(scanner.nextLine());
+                    double precio = leerDouble(scanner, "Precio: ");
 
                     System.out.print("Categoria: ");
                     String categoria = scanner.nextLine();
@@ -69,8 +67,7 @@ public class Main {
                         fechaVencimiento = "No aplica";
                     }
 
-                    System.out.print("Cantidad: ");
-                    int cantidad = Integer.parseInt(scanner.nextLine());
+                    int cantidad = leerCantidad(scanner, "Cantidad: ");
 
                     Producto nuevoProducto = new Producto(
                             nombre,
@@ -98,8 +95,7 @@ public class Main {
                     System.out.print("Nombre: ");
                     String nombreFinal = scanner.nextLine();
 
-                    System.out.print("Precio: ");
-                    double precioFinal = Double.parseDouble(scanner.nextLine());
+                    double precioFinal = leerDouble(scanner, "Precio: ");
 
                     System.out.print("Categoria: ");
                     String categoriaFinal = scanner.nextLine();
@@ -111,8 +107,7 @@ public class Main {
                         fechaVencimientoFinal = "No aplica";
                     }
 
-                    System.out.print("Cantidad: ");
-                    int cantidadFinal = Integer.parseInt(scanner.nextLine());
+                    int cantidadFinal = leerCantidad(scanner, "Cantidad: ");
 
                     Producto productoFinal = new Producto(
                             nombreFinal,
@@ -204,8 +199,7 @@ public class Main {
                         System.out.print("Nuevo nombre: ");
                         String nuevoNombre = scanner.nextLine();
 
-                        System.out.print("Nuevo precio: ");
-                        double nuevoPrecio = Double.parseDouble(scanner.nextLine());
+                        double nuevoPrecio = leerDouble(scanner, "Nuevo precio: ");
 
                         System.out.print("Nueva categoria: ");
                         String nuevaCategoria = scanner.nextLine();
@@ -219,8 +213,7 @@ public class Main {
                             nuevaFechaVencimiento = "No aplica";
                         }
 
-                        System.out.print("Nueva cantidad: ");
-                        int nuevaCantidad = Integer.parseInt(scanner.nextLine());
+                        int nuevaCantidad = leerCantidad(scanner, "Nueva cantidad: ");
 
                         boolean modificado = lista.modificarProducto(
                                 nombreActual,
@@ -314,7 +307,7 @@ public class Main {
 
                         System.out.println(
                                 MORADO + "\nProducto encontrado: "
-                                + productoImagen.getNombre() + RESET
+                                        + productoImagen.getNombre() + RESET
                         );
 
                         System.out.print(
@@ -322,19 +315,27 @@ public class Main {
                         );
                         String rutaImagen = scanner.nextLine();
 
-                        boolean imagenAgregada = lista.agregarImagenProducto(
-                                nombreImagen,
-                                rutaImagen
-                        );
+                        if (existeImagen(rutaImagen)) {
 
-                        if (imagenAgregada) {
-                            System.out.println(
-                                    VERDE + "\nImagen agregada correctamente." + RESET
+                            boolean imagenAgregada = lista.agregarImagenProducto(
+                                    nombreImagen,
+                                    rutaImagen
                             );
 
+                            if (imagenAgregada) {
+                                System.out.println(
+                                        VERDE + "\nImagen agregada correctamente." + RESET
+                                );
+
+                                System.out.println(
+                                        "Imagenes del producto: "
+                                                + productoImagen.getListaImagenes()
+                                );
+                            }
+
+                        } else {
                             System.out.println(
-                                    "Imagenes del producto: "
-                                    + productoImagen.getListaImagenes()
+                                    ROJO + "\nLa imagen indicada no existe." + RESET
                             );
                         }
                     }
@@ -381,5 +382,58 @@ public class Main {
     public static void limpiarPantalla() {
         System.out.print("\033[H\033[2J\033[3J");
         System.out.flush();
+    }
+
+    public static int leerEntero(Scanner scanner, String mensaje) {
+
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine();
+
+            try {
+                return Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println(ROJO + "Ingrese un número entero válido." + RESET);
+            }
+        }
+    }
+
+    public static int leerCantidad(Scanner scanner, String mensaje) {
+
+        while (true) {
+            int cantidad = leerEntero(scanner, mensaje);
+
+            if (cantidad >= 0) {
+                return cantidad;
+            }
+
+            System.out.println(ROJO + "La cantidad no puede ser negativa." + RESET);
+        }
+    }
+
+    public static double leerDouble(Scanner scanner, String mensaje) {
+
+        while (true) {
+            System.out.print(mensaje);
+            String entrada = scanner.nextLine();
+
+            try {
+                double numero = Double.parseDouble(entrada);
+
+                if (numero >= 0) {
+                    return numero;
+                }
+
+                System.out.println(ROJO + "El valor no puede ser negativo." + RESET);
+
+            } catch (NumberFormatException e) {
+                System.out.println(ROJO + "Ingrese un número válido." + RESET);
+            }
+        }
+    }
+
+    public static boolean existeImagen(String rutaImagen) {
+        File archivo = new File(rutaImagen);
+        return archivo.exists() && archivo.isFile();
     }
 }
