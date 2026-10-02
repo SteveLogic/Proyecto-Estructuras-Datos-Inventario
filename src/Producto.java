@@ -12,7 +12,7 @@ public class Producto {
 
     // Constructor
     public Producto(String nombre, double precio, String categoria,
-            String fechaVencimiento, int cantidad) {
+                    String fechaVencimiento, int cantidad) {
 
         this.nombre = nombre;
         this.precio = precio;
@@ -22,7 +22,7 @@ public class Producto {
         this.listaImagenes = new ArrayList<>();
     }
 
-        // Getters
+    // Getters
     public String getNombre() {
         return nombre;
     }
@@ -68,12 +68,12 @@ public class Producto {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
-        // Agregar imagen
+
+    // Agregar imagen
     public void agregarImagen(String rutaImagen) {
         listaImagenes.add(rutaImagen);
     }
-        
+
 
 }
 

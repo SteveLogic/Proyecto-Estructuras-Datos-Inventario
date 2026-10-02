@@ -52,13 +52,11 @@ public class Main {
                     System.out.println(VERDE + "   INSERTAR PRODUCTO AL INICIO" + RESET);
                     System.out.println(VERDE + "=================================" + RESET);
 
-                    System.out.print("Nombre: ");
-                    String nombre = scanner.nextLine();
+                    String nombre = leerTexto(scanner, "Nombre: ");
 
                     double precio = leerDouble(scanner, "Precio: ");
 
-                    System.out.print("Categoria: ");
-                    String categoria = scanner.nextLine();
+                    String categoria = leerTexto(scanner, "Categoria: ");
 
                     System.out.print("Fecha de vencimiento (ENTER si no aplica): ");
                     String fechaVencimiento = scanner.nextLine();
@@ -92,13 +90,11 @@ public class Main {
                     System.out.println(VERDE + "    INSERTAR PRODUCTO AL FINAL" + RESET);
                     System.out.println(VERDE + "=================================" + RESET);
 
-                    System.out.print("Nombre: ");
-                    String nombreFinal = scanner.nextLine();
+                    String nombreFinal = leerTexto(scanner, "Nombre: ");
 
                     double precioFinal = leerDouble(scanner, "Precio: ");
 
-                    System.out.print("Categoria: ");
-                    String categoriaFinal = scanner.nextLine();
+                    String categoriaFinal = leerTexto(scanner, "Categoria: ");
 
                     System.out.print("Fecha de vencimiento (ENTER si no aplica): ");
                     String fechaVencimientoFinal = scanner.nextLine();
@@ -196,13 +192,11 @@ public class Main {
                                 AMARILLO + "\nProducto encontrado." + RESET
                         );
 
-                        System.out.print("Nuevo nombre: ");
-                        String nuevoNombre = scanner.nextLine();
+                        String nuevoNombre = leerTexto(scanner, "Nombre: ");
 
                         double nuevoPrecio = leerDouble(scanner, "Nuevo precio: ");
 
-                        System.out.print("Nueva categoria: ");
-                        String nuevaCategoria = scanner.nextLine();
+                        String nuevaCategoria = leerTexto(scanner, "Nueva categoria: ");
 
                         System.out.print(
                                 "Nueva fecha de vencimiento (ENTER si no aplica): "
@@ -260,11 +254,10 @@ public class Main {
                         System.out.println("Categoria: " + productoEliminar.getCategoria());
                         System.out.println("Cantidad: " + productoEliminar.getCantidad());
 
-                        System.out.print(
+                        String confirmacion = leerConfirmacion(
+                                scanner,
                                 "\n¿Esta seguro de que desea eliminar este producto? (S/N): "
                         );
-
-                        String confirmacion = scanner.nextLine();
 
                         if (confirmacion.equalsIgnoreCase("S")) {
 
@@ -384,6 +377,20 @@ public class Main {
         System.out.flush();
     }
 
+    public static String leerTexto(Scanner scanner, String mensaje) {
+
+        while (true) {
+            System.out.print(mensaje);
+            String texto = scanner.nextLine().trim();
+
+            if (!texto.isBlank()) {
+                return texto;
+            }
+
+            System.out.println(ROJO + "Este campo no puede estar vacío." + RESET);
+        }
+    }
+    // Leer y validar números enteros
     public static int leerEntero(Scanner scanner, String mensaje) {
 
         while (true) {
@@ -397,7 +404,7 @@ public class Main {
             }
         }
     }
-
+    // Leer y validar cantidades
     public static int leerCantidad(Scanner scanner, String mensaje) {
 
         while (true) {
@@ -410,7 +417,7 @@ public class Main {
             System.out.println(ROJO + "La cantidad no puede ser negativa." + RESET);
         }
     }
-
+    // Leer y validar números decimales
     public static double leerDouble(Scanner scanner, String mensaje) {
 
         while (true) {
@@ -431,9 +438,26 @@ public class Main {
             }
         }
     }
-
+    // Verificar que la ruta de una imagen exista
     public static boolean existeImagen(String rutaImagen) {
         File archivo = new File(rutaImagen);
         return archivo.exists() && archivo.isFile();
+    }
+    //Verificar que sólo ingrese S o N para eliminar un objeto
+    public static String leerConfirmacion(Scanner scanner, String mensaje) {
+
+        while (true) {
+            System.out.print(mensaje);
+            String respuesta = scanner.nextLine().trim();
+
+            if (respuesta.equalsIgnoreCase("S")
+                    || respuesta.equalsIgnoreCase("N")) {
+                return respuesta;
+            }
+
+            System.out.println(
+                    ROJO + "Ingrese únicamente S o N." + RESET
+            );
+        }
     }
 }

@@ -7,6 +7,7 @@ public class ListaProductos {
     public ListaProductos() {
         this.primero = null;
     }
+
     // Insertar producto al inicio
     public void insertarInicio(Producto producto) {
 
@@ -16,8 +17,13 @@ public class ListaProductos {
         primero = nuevo;
     }
 
-        // Mostrar productos
+    // Mostrar productos
     public void mostrarProductos() {
+
+        if (primero == null) {
+            System.out.println("No hay productos registrados.");
+            return;
+        }
 
         NodoProducto actual = primero;
 
@@ -27,15 +33,15 @@ public class ListaProductos {
 
             System.out.println(
                     producto.getNombre() +
-                    " - Precio: " + producto.getPrecio() +
-                    " - Cantidad: " + producto.getCantidad()
+                            " - Precio: " + producto.getPrecio() +
+                            " - Cantidad: " + producto.getCantidad()
             );
 
             actual = actual.getSiguiente();
         }
     }
 
-        // Insertar producto al final
+    // Insertar producto al final
     public void insertarFinal(Producto producto) {
 
         NodoProducto nuevo = new NodoProducto(producto);
@@ -57,7 +63,7 @@ public class ListaProductos {
         actual.setSiguiente(nuevo);
     }
 
-        // Buscar producto por nombre
+    // Buscar producto por nombre
     public Producto buscarProducto(String nombre) {
 
         NodoProducto actual = primero;
@@ -73,9 +79,9 @@ public class ListaProductos {
 
         return null;
     }
-    
 
-        // Modificar producto
+
+    // Modificar producto
     public boolean modificarProducto(
             String nombreActual,
             String nuevoNombre,
@@ -99,7 +105,7 @@ public class ListaProductos {
         return true;
     }
 
-        // Eliminar producto
+    // Eliminar producto
     public boolean eliminarProducto(String nombre) {
 
         // Si la lista está vacía
@@ -131,7 +137,7 @@ public class ListaProductos {
         return false;
     }
 
-        // Agregar imagen a un producto
+    // Agregar imagen a un producto
     public boolean agregarImagenProducto(String nombre, String rutaImagen) {
 
         Producto producto = buscarProducto(nombre);
@@ -144,9 +150,13 @@ public class ListaProductos {
         return true;
     }
 
-
-        // Reporte de costos
+    // Reporte de costos
     public void reporteCostos() {
+
+        if (primero == null) {
+            System.out.println("No hay productos registrados para generar el reporte.");
+            return;
+        }
 
         NodoProducto actual = primero;
         double costoTotalLista = 0;
@@ -160,9 +170,9 @@ public class ListaProductos {
 
             System.out.println(
                     producto.getNombre()
-                    + " - Precio: " + producto.getPrecio()
-                    + " - Cantidad: " + producto.getCantidad()
-                    + " - Costo total: " + costoProducto
+                            + " - Precio: " + producto.getPrecio()
+                            + " - Cantidad: " + producto.getCantidad()
+                            + " - Costo total: " + costoProducto
             );
 
             costoTotalLista += costoProducto;
@@ -174,9 +184,4 @@ public class ListaProductos {
                 "Costo total de la lista: " + costoTotalLista
         );
     }
-
-
-
-
-
 }

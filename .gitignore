@@ -1,6 +1,16 @@
+# Archivos compilados
 bin/
+out/
 *.class
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
 .classpath
 .project
 .settings/
+
+# Visual Studio Code
 .vscode/

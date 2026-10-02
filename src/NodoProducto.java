@@ -10,7 +10,7 @@ public class NodoProducto {
         this.siguiente = null;
     }
 
-        // Getters
+    // Getters
     public Producto getProducto() {
         return producto;
     }
