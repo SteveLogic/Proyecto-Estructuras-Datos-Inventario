@@ -262,6 +262,87 @@ public class ArbolProductos {
         return nodo;
     }
 
+    private void enOrdenRec(NodoArbolProducto subraiz) {// la subraiz es el nodo del subarbol que se desea recorrer
+        //Izq->Raiz->Der
+        //Imprime cada subárbol de izquierda a derecha
+
+        // Si la subraíz no es null, se recorre el árbol
+        if (subraiz != null) {
+
+            // Se recorre el subárbol izquierdo
+            enOrdenRec(subraiz.getIzq());//Recursiva, se ejecuta hasta obtener el nodo izquierdo menor, a partir de ahí, recorre el resto del código devolviendo todos los valores que obtuvo a partir de las evaluaciones recursivas
+
+            // Se muestra el producto del nodo actual
+            System.out.println(subraiz.getProducto().getNombre());//Primero imprime el nodo izquierdo menor
+
+            // Se recorre el subárbol derecho
+            enOrdenRec(subraiz.getDer());
+        }
+    }
+
+
+    public void enOrden() { //permite llamar al método desde el Main
+
+        // Se inicia el recorrido en orden desde la raíz
+        // Recorre todo el árbol
+        enOrdenRec(raiz);
+
+        // Se imprime un salto de línea al finalizar
+        System.out.println("\n");
+    }
+
+    private void preOrdenRec(NodoArbolProducto subraiz) {//Raiz->Izq->Der
+
+        // Si la subraíz no es null, se recorre el árbol
+        if (subraiz != null) {
+
+            // Se muestra el producto del nodo actual
+            System.out.println(subraiz.getProducto().getNombre());
+
+            // Se recorre el subárbol izquierdo
+            preOrdenRec(subraiz.getIzq());
+
+            // Se recorre el subárbol derecho
+            preOrdenRec(subraiz.getDer());
+        }
+    }
+
+    public void preOrden() {
+
+        // Se inicia el recorrido en preorden desde la raíz
+        preOrdenRec(raiz);
+
+        // Se imprime un salto de línea al finalizar
+        System.out.println("\n");
+    }
+
+
+    private void postOrdenRec(NodoArbolProducto subraiz) {//Izq->Der->Raiz
+
+        // Si la subraíz no es null, se recorre el árbol
+        if (subraiz != null) {
+
+            // Se recorre el subárbol izquierdo
+            postOrdenRec(subraiz.getIzq());
+
+            // Se recorre el subárbol derecho
+            postOrdenRec(subraiz.getDer());
+
+            // Se muestra el producto del nodo actual
+            System.out.println(subraiz.getProducto().getNombre());
+        }
+    }
+
+
+    public void postOrden() {
+
+        // Se inicia el recorrido en postorden desde la raíz
+        postOrdenRec(raiz);
+
+        // Se imprime un salto de línea al finalizar
+        System.out.println("\n");
+    }
+
     // Getters
     private NodoArbolProducto getRaiz() {
         return raiz;
@@ -272,4 +353,5 @@ public class ArbolProductos {
         this.raiz = raiz;
     }
 }
+
 
