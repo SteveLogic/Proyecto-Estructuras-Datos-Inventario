@@ -66,7 +66,7 @@ public class ColaClientes {
     public Cliente atender() {
         // Si la cola está vacía, no hay a quién atender
         if (estaVacia()) {
-            System.out.println("No hay clientes en la cola.\n");
+
             return null;
         }
 

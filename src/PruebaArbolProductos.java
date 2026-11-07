@@ -38,7 +38,7 @@ public class PruebaArbolProductos {
         // Se busca un producto inexistente
         System.out.println("\nBúsqueda de producto inexistente:");
 
-        NodoArbolProducto noEncontrado = arbol.buscar("Azúcar");
+        arbol.buscar("Azúcar");
 
 
         // Se elimina un producto que no tiene hijos

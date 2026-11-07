@@ -15,57 +15,76 @@ public class Main {
     public static void main(String[] args) {
         menu();
     }
-
     public static void menu() {
 
-        Scanner scanner = new Scanner(System.in);
-        ListaProductos lista = new ListaProductos();
+    Scanner scanner = new Scanner(System.in);
+    Tienda tienda = new Tienda();
 
-        int opcion;
+    int opcion;
 
-        do {
+    do {
 
-            limpiarPantalla();
+        limpiarPantalla();
 
-            System.out.println(AZUL + "=================================" + RESET);
-            System.out.println(AZUL + "   SISTEMA DE GESTION DE INVENTARIO" + RESET);
-            System.out.println(AZUL + "=================================" + RESET);
-            System.out.println("1. Insertar producto al inicio");
-            System.out.println("2. Insertar producto al final");
-            System.out.println("3. Mostrar productos");
-            System.out.println("4. Buscar producto");
-            System.out.println("5. Modificar producto");
-            System.out.println("6. Eliminar producto");
-            System.out.println("7. Agregar imagen a producto");
-            System.out.println("8. Reporte de costos");
-            System.out.println("9. Salir");
-            System.out.println(AZUL + "=================================" + RESET);
+        System.out.println(AZUL + "====================================" + RESET);
+        System.out.println(AZUL + "     SISTEMA DE GESTION DE TIENDA" + RESET);
+        System.out.println(AZUL + "====================================" + RESET);
 
-            opcion = leerEntero(scanner, "Seleccione una opcion: ");
+        System.out.println("1. Agregar producto al inventario");
+        System.out.println("2. Registrar cliente y realizar compra");
+        System.out.println("3. Mostrar inventario");
+        System.out.println("4. Mostrar cola de clientes");
+        System.out.println("5. Atender siguiente cliente");
+        System.out.println("6. Salir");
 
-            switch (opcion) {
+        System.out.println(AZUL + "====================================" + RESET);
 
-                case 1:
+        opcion = leerEntero(
+                scanner,
+                "Seleccione una opcion: "
+        );
+
+        switch (opcion) {
+
+            case 1:
+            {
+
+                boolean seguirAgregando = true;
+
+                while (seguirAgregando) {
+
                     limpiarPantalla();
 
-                    System.out.println(VERDE + "=================================" + RESET);
-                    System.out.println(VERDE + "   INSERTAR PRODUCTO AL INICIO" + RESET);
-                    System.out.println(VERDE + "=================================" + RESET);
+                    System.out.println(
+                            VERDE + "====================================" + RESET
+                    );
+                    System.out.println(
+                            VERDE + "     AGREGAR PRODUCTO AL INVENTARIO" + RESET
+                    );
+                    System.out.println(
+                            VERDE + "====================================" + RESET
+                    );
 
-                    String nombre = leerTexto(scanner, "Nombre: ");
+                    System.out.print("Nombre: ");
+                    String nombre = scanner.nextLine();
 
-                    double precio = leerDouble(scanner, "Precio: ");
+                    System.out.print("Precio: ");
+                    double precio = Double.parseDouble(scanner.nextLine());
 
-                    String categoria = leerTexto(scanner, "Categoria: ");
+                    System.out.print("Categoria: ");
+                    String categoria = scanner.nextLine();
 
-                    System.out.print("Fecha de vencimiento (ENTER si no aplica): ");
+                    System.out.print(
+                            "Fecha de vencimiento (ENTER si no aplica): "
+                    );
                     String fechaVencimiento = scanner.nextLine();
 
                     if (fechaVencimiento.isBlank()) {
                         fechaVencimiento = "No aplica";
                     }
 
-                    int cantidad = leerCantidad(scanner, "Cantidad: ");
+                    System.out.print("Cantidad: ");
+                    int cantidad = Integer.parseInt(scanner.nextLine());
 
                     Producto nuevoProducto = new Producto(
                             nombre,
@@ -75,297 +94,264 @@ public class Main {
                             cantidad
                     );
 
-                    lista.insertarInicio(nuevoProducto);
+                    tienda.agregarProducto(nuevoProducto);
 
                     System.out.println(
-                            VERDE + "\nProducto agregado correctamente." + RESET
+                            VERDE + "\nProducto agregado al inventario." + RESET
                     );
 
-                    pausar(scanner);
-                    break;
-                case 2:
-                    limpiarPantalla();
-
-                    System.out.println(VERDE + "=================================" + RESET);
-                    System.out.println(VERDE + "    INSERTAR PRODUCTO AL FINAL" + RESET);
-                    System.out.println(VERDE + "=================================" + RESET);
-
-                    String nombreFinal = leerTexto(scanner, "Nombre: ");
-
-                    double precioFinal = leerDouble(scanner, "Precio: ");
-
-                    String categoriaFinal = leerTexto(scanner, "Categoria: ");
-
-                    System.out.print("Fecha de vencimiento (ENTER si no aplica): ");
-                    String fechaVencimientoFinal = scanner.nextLine();
-
-                    if (fechaVencimientoFinal.isBlank()) {
-                        fechaVencimientoFinal = "No aplica";
-                    }
-
-                    int cantidadFinal = leerCantidad(scanner, "Cantidad: ");
-
-                    Producto productoFinal = new Producto(
-                            nombreFinal,
-                            precioFinal,
-                            categoriaFinal,
-                            fechaVencimientoFinal,
-                            cantidadFinal
+                    System.out.print(
+                            "\n¿Desea agregar otro producto? (S/N): "
                     );
 
-                    lista.insertarFinal(productoFinal);
+                    String respuesta = scanner.nextLine();
 
-                    System.out.println(
-                            VERDE + "\nProducto agregado correctamente al final." + RESET
-                    );
-
-                    pausar(scanner);
-                    break;
-
-                case 3:
-                    limpiarPantalla();
-
-                    System.out.println(CIAN + "=================================" + RESET);
-                    System.out.println(CIAN + "        MOSTRAR PRODUCTOS" + RESET);
-                    System.out.println(CIAN + "=================================" + RESET);
-
-                    lista.mostrarProductos();
-
-                    pausar(scanner);
-                    break;
-                case 4:
-                    limpiarPantalla();
-
-                    System.out.println(CIAN + "=================================" + RESET);
-                    System.out.println(CIAN + "         BUSCAR PRODUCTO" + RESET);
-                    System.out.println(CIAN + "=================================" + RESET);
-
-                    System.out.print("Ingrese el nombre del producto: ");
-                    String nombreBusqueda = scanner.nextLine();
-
-                    Producto productoEncontrado = lista.buscarProducto(nombreBusqueda);
-
-                    if (productoEncontrado != null) {
-
-                        System.out.println(CIAN + "\nProducto encontrado:" + RESET);
-                        System.out.println("Nombre: " + productoEncontrado.getNombre());
-                        System.out.println("Precio: " + productoEncontrado.getPrecio());
-                        System.out.println("Categoria: " + productoEncontrado.getCategoria());
-                        System.out.println(
-                                "Fecha de vencimiento: "
-                                        + productoEncontrado.getFechaVencimiento()
-                        );
-                        System.out.println("Cantidad: " + productoEncontrado.getCantidad());
-                        System.out.println(
-                                "Imagenes: " + productoEncontrado.getListaImagenes()
-                        );
-
-                    } else {
-                        System.out.println(
-                                ROJO + "\nProducto no encontrado." + RESET
-                        );
+                    if (!respuesta.equalsIgnoreCase("S")) {
+                        seguirAgregando = false;
                     }
+                }
 
-                    pausar(scanner);
-                    break;
-                case 5:
-                    limpiarPantalla();
-
-                    System.out.println(AMARILLO + "=================================" + RESET);
-                    System.out.println(AMARILLO + "       MODIFICAR PRODUCTO" + RESET);
-                    System.out.println(AMARILLO + "=================================" + RESET);
-
-                    System.out.print("Ingrese el nombre del producto a modificar: ");
-                    String nombreActual = scanner.nextLine();
-
-                    Producto productoModificar = lista.buscarProducto(nombreActual);
-
-                    if (productoModificar == null) {
-
-                        System.out.println(
-                                ROJO + "\nProducto no encontrado." + RESET
-                        );
-
-                    } else {
-
-                        System.out.println(
-                                AMARILLO + "\nProducto encontrado." + RESET
-                        );
-
-                        String nuevoNombre = leerTexto(scanner, "Nombre: ");
-
-                        double nuevoPrecio = leerDouble(scanner, "Nuevo precio: ");
-
-                        String nuevaCategoria = leerTexto(scanner, "Nueva categoria: ");
-
-                        System.out.print(
-                                "Nueva fecha de vencimiento (ENTER si no aplica): "
-                        );
-                        String nuevaFechaVencimiento = scanner.nextLine();
-
-                        if (nuevaFechaVencimiento.isBlank()) {
-                            nuevaFechaVencimiento = "No aplica";
-                        }
-
-                        int nuevaCantidad = leerCantidad(scanner, "Nueva cantidad: ");
-
-                        boolean modificado = lista.modificarProducto(
-                                nombreActual,
-                                nuevoNombre,
-                                nuevoPrecio,
-                                nuevaCategoria,
-                                nuevaFechaVencimiento,
-                                nuevaCantidad
-                        );
-
-                        if (modificado) {
-                            System.out.println(
-                                    VERDE + "\nProducto modificado correctamente." + RESET
-                            );
-                        }
-                    }
-
-                    pausar(scanner);
-                    break;
-
-                case 6:
-                    limpiarPantalla();
-
-                    System.out.println(ROJO + "=================================" + RESET);
-                    System.out.println(ROJO + "        ELIMINAR PRODUCTO" + RESET);
-                    System.out.println(ROJO + "=================================" + RESET);
-
-                    System.out.print("Ingrese el nombre del producto a eliminar: ");
-                    String nombreEliminar = scanner.nextLine();
-
-                    Producto productoEliminar = lista.buscarProducto(nombreEliminar);
-
-                    if (productoEliminar == null) {
-
-                        System.out.println(
-                                ROJO + "\nProducto no encontrado." + RESET
-                        );
-
-                    } else {
-
-                        System.out.println("\nProducto encontrado:");
-                        System.out.println("Nombre: " + productoEliminar.getNombre());
-                        System.out.println("Precio: " + productoEliminar.getPrecio());
-                        System.out.println("Categoria: " + productoEliminar.getCategoria());
-                        System.out.println("Cantidad: " + productoEliminar.getCantidad());
-
-                        String confirmacion = leerConfirmacion(
-                                scanner,
-                                "\n¿Esta seguro de que desea eliminar este producto? (S/N): "
-                        );
-
-                        if (confirmacion.equalsIgnoreCase("S")) {
-
-                            boolean eliminado = lista.eliminarProducto(nombreEliminar);
-
-                            if (eliminado) {
-                                System.out.println(
-                                        VERDE + "\nProducto eliminado correctamente." + RESET
-                                );
-                            }
-
-                        } else {
-                            System.out.println(
-                                    AMARILLO + "\nOperacion cancelada." + RESET
-                            );
-                        }
-                    }
-
-                    pausar(scanner);
-                    break;
-                case 7:
-                    limpiarPantalla();
-
-                    System.out.println(MORADO + "=================================" + RESET);
-                    System.out.println(MORADO + "     AGREGAR IMAGEN A PRODUCTO" + RESET);
-                    System.out.println(MORADO + "=================================" + RESET);
-
-                    System.out.print("Ingrese el nombre del producto: ");
-                    String nombreImagen = scanner.nextLine();
-
-                    Producto productoImagen = lista.buscarProducto(nombreImagen);
-
-                    if (productoImagen == null) {
-
-                        System.out.println(
-                                ROJO + "\nProducto no encontrado." + RESET
-                        );
-
-                    } else {
-
-                        System.out.println(
-                                MORADO + "\nProducto encontrado: "
-                                        + productoImagen.getNombre() + RESET
-                        );
-
-                        System.out.print(
-                                "Ingrese la ruta de la imagen (ej. imagenes/producto.jpg): "
-                        );
-                        String rutaImagen = scanner.nextLine();
-
-                        if (existeImagen(rutaImagen)) {
-
-                            boolean imagenAgregada = lista.agregarImagenProducto(
-                                    nombreImagen,
-                                    rutaImagen
-                            );
-
-                            if (imagenAgregada) {
-                                System.out.println(
-                                        VERDE + "\nImagen agregada correctamente." + RESET
-                                );
-
-                                System.out.println(
-                                        "Imagenes del producto: "
-                                                + productoImagen.getListaImagenes()
-                                );
-                            }
-
-                        } else {
-                            System.out.println(
-                                    ROJO + "\nLa imagen indicada no existe." + RESET
-                            );
-                        }
-                    }
-
-                    pausar(scanner);
-                    break;
-
-                case 8:
-                    limpiarPantalla();
-
-                    System.out.println(MORADO + "=================================" + RESET);
-                    System.out.println(MORADO + "         REPORTE DE COSTOS" + RESET);
-                    System.out.println(MORADO + "=================================" + RESET);
-
-                    lista.reporteCostos();
-
-                    pausar(scanner);
-                    break;
-
-                case 9:
-                    limpiarPantalla();
-
-                    System.out.println(AZUL + "Saliendo del sistema..." + RESET);
-                    break;
-
-                default:
-                    limpiarPantalla();
-
-                    System.out.println(ROJO + "Opcion invalida. Intente nuevamente." + RESET);
-
-                    pausar(scanner);
+                break;
             }
 
-        } while (opcion != 9);
+            case 2:
+                limpiarPantalla();
 
-        scanner.close();
-    }
+                System.out.println(
+                        MORADO + "====================================" + RESET
+                );
+                System.out.println(
+                        MORADO + "      REGISTRAR CLIENTE Y COMPRA" + RESET
+                );
+                System.out.println(
+                        MORADO + "====================================" + RESET
+                );
+
+                System.out.print("Nombre del cliente: ");
+                String nombreCliente = scanner.nextLine();
+
+                System.out.print("Identificacion: ");
+                String identificacion = scanner.nextLine();
+
+                int prioridad;
+
+                do {
+                    System.out.println("\nTipo de cliente:");
+                    System.out.println("1. Basico");
+                    System.out.println("2. Afiliado");
+                    System.out.println("3. Premium");
+
+                    prioridad = leerEntero(
+                            scanner,
+                            "Seleccione la prioridad: "
+                    );
+
+                    if (prioridad < 1 || prioridad > 3) {
+                        System.out.println(
+                                ROJO + "Prioridad invalida." + RESET
+                        );
+                    }
+
+                } while (prioridad < 1 || prioridad > 3);
+
+                Cliente nuevoCliente = new Cliente(
+                        nombreCliente,
+                        identificacion,
+                        prioridad
+                );
+
+                boolean carritoConProductos = false;
+
+                while (true) {
+
+                    System.out.println(
+                            CIAN + "\n--- PRODUCTOS DISPONIBLES ---" + RESET
+                    );
+
+                    tienda.mostrarInventario();
+
+                    System.out.print(
+                            "\nIngrese el nombre del producto "
+                            + "(0 para finalizar compra): "
+                    );
+
+                    String nombreProducto = scanner.nextLine();
+
+                    if (nombreProducto.equals("0")) {
+                        break;
+                    }
+
+                    Producto productoDisponible =
+                            tienda.buscarProducto(nombreProducto);
+
+                    if (productoDisponible == null) {
+
+                        System.out.println(
+                                ROJO + "Producto no encontrado." + RESET
+                        );
+
+                        continue;
+                    }
+
+                    System.out.println(
+                            "Precio: " + productoDisponible.getPrecio()
+                    );
+
+                    System.out.println(
+                            "Cantidad disponible: "
+                            + productoDisponible.getCantidad()
+                    );
+
+                    int cantidadCompra = leerEntero(
+                            scanner,
+                            "Cantidad a comprar: "
+                    );
+
+                    boolean agregado =
+                            tienda.agregarProductoAlCarrito(
+                                    nuevoCliente,
+                                    nombreProducto,
+                                    cantidadCompra
+                            );
+
+                    if (agregado) {
+
+                        carritoConProductos = true;
+
+                        System.out.println(
+                                VERDE
+                                + "Producto agregado al carrito."
+                                + RESET
+                        );
+
+                    } else {
+
+                        System.out.println(
+                                ROJO
+                                + "No fue posible agregar el producto."
+                                + RESET
+                        );
+                    }
+                }
+
+                if (carritoConProductos) {
+
+                    tienda.encolarCliente(nuevoCliente);
+
+                    System.out.println(
+                            VERDE
+                            + "\nCliente agregado a la cola de atencion."
+                            + RESET
+                    );
+
+                } else {
+
+                    System.out.println(
+                            AMARILLO
+                            + "\nEl cliente no fue agregado porque "
+                            + "su carrito esta vacio."
+                            + RESET
+                    );
+                }
+
+                pausar(scanner);
+                break;
+
+            case 3:
+                limpiarPantalla();
+
+                System.out.println(
+                        CIAN + "===== INVENTARIO =====" + RESET
+                );
+
+                tienda.mostrarInventario();
+
+                pausar(scanner);
+                break;
+
+            case 4:
+                limpiarPantalla();
+
+                System.out.println(
+                        MORADO + "===== COLA DE CLIENTES =====" + RESET
+                );
+
+                tienda.mostrarColaClientes();
+
+                pausar(scanner);
+                break;
+
+            case 5:
+                limpiarPantalla();
+
+                System.out.println(
+                        AMARILLO + "====================================" + RESET
+                );
+                System.out.println(
+                        AMARILLO + "       ATENDER SIGUIENTE CLIENTE" + RESET
+                );
+                System.out.println(
+                        AMARILLO + "====================================" + RESET
+                );
+
+                Cliente clienteAtendido =
+                        tienda.atenderSiguienteCliente();
+
+                if (clienteAtendido == null) {
+
+                    System.out.println(
+                            ROJO + "\nNo hay clientes en la cola." + RESET
+                    );
+
+                } else {
+
+                    System.out.println(
+                            VERDE + "\nCliente atendido:" + RESET
+                    );
+
+                    System.out.println(
+                            "Nombre: " + clienteAtendido.getNombre()
+                    );
+
+                    System.out.println(
+                            "Identificacion: "
+                            + clienteAtendido.getIdentificacion()
+                    );
+
+                    System.out.println(
+                            "Prioridad: "
+                            + clienteAtendido.getPrioridad()
+                    );
+
+                    System.out.println(
+                            CIAN + "\n===== FACTURA =====" + RESET
+                    );
+
+                    clienteAtendido
+                            .getCarrito()
+                            .reporteCostos();
+                }
+
+                pausar(scanner);
+                break;
+            case 6:
+                System.out.println(
+                        AZUL + "\nSaliendo del sistema..." + RESET
+                );
+                break;
+
+            default:
+                System.out.println(
+                        ROJO + "\nOpcion invalida." + RESET
+                );
+
+                pausar(scanner);
+        }
+
+    } while (opcion != 6);
+}
+
+
 
     public static void pausar(Scanner scanner) {
         System.out.println("\nPresione ENTER para volver al menu principal...");

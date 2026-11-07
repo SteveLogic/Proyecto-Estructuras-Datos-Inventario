@@ -343,12 +343,7 @@ public class ArbolProductos {
         System.out.println("\n");
     }
 
-    // Getters
-    private NodoArbolProducto getRaiz() {
-        return raiz;
-    }
-
-    // Setters
+    // Setter de la raíz
     private void setRaiz(NodoArbolProducto raiz) {
         this.raiz = raiz;
     }

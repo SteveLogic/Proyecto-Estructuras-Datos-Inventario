@@ -124,11 +124,87 @@ public class PruebaTienda {
                 "Pan disponible: " + panFinal.getCantidad()
         );
 
+        System.out.println("\n--- PRUEBA CLIENTES Y COLA ---");
+
+        Cliente cliente1 = new Cliente(
+                "Steven",
+                "111",
+                Cliente.PRIORIDAD_BASICO
+        );
+
+        Cliente cliente2 = new Cliente(
+                "Monica",
+                "222",
+                Cliente.PRIORIDAD_PREMIUM
+        );
+
+        Cliente cliente3 = new Cliente(
+                "Danny",
+                "333",
+                Cliente.PRIORIDAD_AFILIADO
+        );
+
+                // Agregar productos a los carritos desde el inventario
+        tienda.agregarProductoAlCarrito(
+                cliente1,
+                "Leche",
+                2
+        );
+
+        tienda.agregarProductoAlCarrito(
+                cliente2,
+                "Pan",
+                2
+        );
+
+        tienda.agregarProductoAlCarrito(
+                cliente3,
+                "Arroz",
+                3
+        );
+
+        // Agregar clientes a la cola
+        tienda.encolarCliente(cliente1);
+        tienda.encolarCliente(cliente2);
+        tienda.encolarCliente(cliente3);
+
+        System.out.println("\n--- COLA DE ATENCION ---");
+        tienda.mostrarColaClientes();
+
+        // Ver quién será atendido primero
+        System.out.println("\n--- SIGUIENTE CLIENTE ---");
+
+        Cliente siguiente = tienda.verSiguienteCliente();
+
+        if (siguiente != null) {
+        System.out.println(
+                "Siguiente cliente: " + siguiente.getNombre()
+        );
+        }
+
+        // Atender al cliente con mayor prioridad
+        System.out.println("\n--- ATENDIENDO CLIENTE ---");
+
+        Cliente atendido = tienda.atenderSiguienteCliente();
+
+        if (atendido != null) {
+
+        System.out.println(
+                "Cliente atendido: " + atendido.getNombre()
+        );
+
+        System.out.println("\n--- FACTURA ---");
+
+        atendido.getCarrito().reporteCostos();
+        }
+
+
 
 
 
 
     }
+
 
 
 }
