@@ -76,7 +76,7 @@ public class ArbolProductos {
 
         // Si el árbol está vacío, se da un mensaje y se retorna null
         if (estaVacio()) {
-            System.out.println("El árbol está vacío.\n");
+            //System.out.println("El árbol está vacío.\n");
             return null;
         }
 
@@ -111,7 +111,7 @@ public class ArbolProductos {
         }
 
         // Si no se encontró el producto, se retorna null
-        System.out.println("El producto no está en el árbol.\n");
+        //System.out.println("El producto no está en el árbol.\n");
         return null;
     }
 

@@ -65,26 +65,44 @@ public class Main {
                             VERDE + "====================================" + RESET
                     );
 
-                    System.out.print("Nombre: ");
-                    String nombre = scanner.nextLine();
+                    String nombre = leerTexto(
+                            scanner,
+                            "Nombre: "
+                    );
+                    if (tienda.buscarProducto(nombre) != null) {
 
-                    System.out.print("Precio: ");
-                    double precio = Double.parseDouble(scanner.nextLine());
+                        System.out.println(  ROJO + "\nYa existe un producto con ese nombre." + RESET);
+                        System.out.print(  "\nPresione ENTER para intentar con otro nombre...");
+                        scanner.nextLine();
+                        continue;
 
-                    System.out.print("Categoria: ");
-                    String categoria = scanner.nextLine();
+
+
+                    }
+
+                    double precio = leerDouble(
+                            scanner,
+                            "Precio: "
+                    );
+
+                    String categoria = leerTexto(
+                            scanner,
+                            "Categoria: "
+                    );
 
                     System.out.print(
                             "Fecha de vencimiento (ENTER si no aplica): "
                     );
-                    String fechaVencimiento = scanner.nextLine();
+                    String fechaVencimiento = scanner.nextLine().trim();
 
                     if (fechaVencimiento.isBlank()) {
                         fechaVencimiento = "No aplica";
                     }
 
-                    System.out.print("Cantidad: ");
-                    int cantidad = Integer.parseInt(scanner.nextLine());
+                    int cantidad = leerCantidad(
+                            scanner,
+                            "Cantidad: "
+                    );
 
                     Producto nuevoProducto = new Producto(
                             nombre,
@@ -100,11 +118,10 @@ public class Main {
                             VERDE + "\nProducto agregado al inventario." + RESET
                     );
 
-                    System.out.print(
+                    String respuesta = leerConfirmacion(
+                            scanner,
                             "\n¿Desea agregar otro producto? (S/N): "
                     );
-
-                    String respuesta = scanner.nextLine();
 
                     if (!respuesta.equalsIgnoreCase("S")) {
                         seguirAgregando = false;
@@ -128,10 +145,8 @@ public class Main {
                 );
 
                 System.out.print("Nombre del cliente: ");
-                String nombreCliente = scanner.nextLine();
-
-                System.out.print("Identificacion: ");
-                String identificacion = scanner.nextLine();
+                String nombreCliente = leerTexto(scanner,"Nombre del cliente: ");
+                String identificacion = leerTexto(scanner,"Identificacion: ");
 
                 int prioridad;
 
@@ -202,10 +217,9 @@ public class Main {
                             + productoDisponible.getCantidad()
                     );
 
-                    int cantidadCompra = leerEntero(
-                            scanner,
-                            "Cantidad a comprar: "
-                    );
+                    int cantidadCompra = leerCantidad(
+                        scanner,
+                        "Cantidad a comprar: ");
 
                     boolean agregado =
                             tienda.agregarProductoAlCarrito(

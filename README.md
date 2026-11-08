@@ -1,50 +1,97 @@
 ﻿# Proyecto de Gestión de Inventarios
 
-Proyecto final del curso Estructuras de Datos.
+Proyecto desarrollado para el curso **Estructuras de Datos (SOFT-10)** de la Universidad CENFOTEC, correspondiente al segundo avance del proyecto de gestión de inventarios.
 
-Universidad CENFOTEC  
-Curso: Estructuras de Datos  
-Periodo: C3-2026
+## Descripción
+
+La aplicación simula un sistema de ventas e inventario mediante estructuras de datos dinámicas.
+
+El sistema permite administrar productos, registrar clientes, realizar compras, manejar una cola de atención según prioridad y generar la factura correspondiente al carrito de cada cliente.
+
+## Estructuras de datos utilizadas
+
+### Árbol binario de búsqueda
+
+El inventario de la tienda se administra mediante la clase `ArbolProductos`.
+
+Cada nodo almacena un objeto `Producto` y utiliza el nombre del producto como llave para realizar operaciones de:
+
+- Inserción.
+- Búsqueda.
+- Eliminación.
+- Recorridos en orden, preorden y postorden.
+
+### Lista enlazada
+
+La clase `ListaProductos` se utiliza para almacenar los productos agregados al carrito de cada cliente.
+
+Permite administrar los productos comprados y calcular el costo total de la compra.
+
+### Cola de prioridad
+
+La clase `ColaClientes` administra los clientes pendientes de atención.
+
+Las prioridades utilizadas son:
+
+- `1` - Cliente Básico.
+- `2` - Cliente Afiliado.
+- `3` - Cliente Premium.
+
+Los clientes con mayor prioridad son atendidos primero. Cuando dos clientes tienen la misma prioridad, se conserva el orden de llegada.
+
+## Clases principales
+
+- `Producto`: representa los productos del inventario.
+- `NodoProducto`: nodo utilizado por la lista enlazada de productos.
+- `ListaProductos`: administra los productos del carrito.
+- `NodoArbolProducto`: representa los nodos del árbol binario de búsqueda.
+- `ArbolProductos`: administra el inventario de productos.
+- `Cliente`: almacena la información del cliente, su prioridad y su carrito.
+- `NodoCliente`: nodo utilizado para administrar la cola de clientes.
+- `ColaClientes`: implementa la cola de atención por prioridad.
+- `Tienda`: integra el inventario, los clientes y el proceso de compra.
+- `Main`: contiene la rutina principal y el menú de interacción con el usuario.
+
+## Funcionalidades
+
+Desde el menú principal se pueden realizar las siguientes operaciones:
+
+1. Agregar productos al inventario.
+2. Registrar un cliente y realizar una compra.
+3. Mostrar los productos disponibles en el inventario.
+4. Mostrar la cola de clientes.
+5. Atender al siguiente cliente según su prioridad.
+6. Salir del programa.
+
+Durante una compra, los productos son seleccionados directamente desde el inventario de la tienda y la cantidad disponible se actualiza según las unidades adquiridas.
+
+## Ejecución
+
+El programa inicia desde la clase:
+
+`Main.java`
+
+Al ejecutar la rutina `main()`, se inicia automáticamente el menú principal de la aplicación.
+
+## Pruebas
+
+El proyecto incluye clases utilizadas para validar el funcionamiento de las estructuras principales:
+
+- `PruebaArbolProductos.java`
+- `PruebaColaClientes.java`
+- `PruebaTienda.java`
+
+Estas permiten comprobar operaciones como inserción, búsqueda, eliminación, recorridos del árbol, prioridad de atención de clientes e integración entre inventario y carrito.
+
+## Integrantes
 
 MONICA LUCIA ALVARADO QUIROS
 STEVEN GEOVANNY LORIA SEGURA
 DANNY ELIECER TREJOS MORALES
 
-## Descripción
+## Curso
 
-Este proyecto consiste en un sistema de gestión de inventarios desarrollado en Java. El programa permite administrar productos utilizando una lista enlazada simple como estructura principal.
-
-Cada producto almacena información como nombre, precio, categoría, fecha de vencimiento y cantidad. Además, permite asociar varias imágenes a un mismo producto mediante una lista dinámica de rutas.
-
-## Funcionalidades
-
-El sistema permite:
-
-- Insertar productos al inicio de la lista.
-- Insertar productos al final de la lista.
-- Mostrar los productos registrados.
-- Buscar productos por nombre.
-- Modificar la información de un producto.
-- Eliminar productos.
-- Asociar varias imágenes a un producto.
-- Verificar que las rutas de las imágenes existan.
-- Generar un reporte con el costo de cada producto y el costo total del inventario.
-- Validar los datos ingresados por el usuario.
-
-## Estructuras utilizadas
-
-Para almacenar los productos se utiliza una lista enlazada simple implementada mediante las clases `ListaProductos` y `NodoProducto`.
-
-Las rutas de las imágenes asociadas a cada producto se almacenan utilizando un `ArrayList<String>`.
-
-## Organización del proyecto
-
-- `Producto.java`: contiene los datos y métodos relacionados con cada producto.
-- `NodoProducto.java`: representa los nodos de la lista enlazada.
-- `ListaProductos.java`: contiene las operaciones de la lista enlazada.
-- `Main.java`: contiene el menú principal, la interacción con el usuario y las validaciones.
-- `imagenes/`: contiene las imágenes utilizadas para las pruebas del sistema.
-
-## Ejecución
-
-Para ejecutar el programa se debe correr la clase `Main.java`. El sistema mostrará un menú en consola desde el cual se pueden utilizar las diferentes funcionalidades del inventario.
+**Universidad CENFOTEC**
+**Curso:** Estructuras de Datos
+**Código:** SOFT-10
+**Periodo:** C3-2026
